@@ -5,13 +5,13 @@ const LeagueSummary = (data) => {
 
     let league = data.league;
     return (
-        <div className="card z-depth-1 league-summary">
+        <div className="card z-depth-1 blue darken-3 league-summary">
             <div className="card-content grey-text text-darken-3">
                 <Link to={"/league/" + league.league_id}>
-                    <span className="card-title">{league.name}</span>
+                    <span className="card-title white-text">{league.name}</span>
                 </Link>
-                <p>{league.franchise_name}</p>
-                <p className="grey-text">{league.url}</p>
+                <p className="amber-text">{league.franchise_name}</p>
+                <p className="white-text">{league.url}</p>
             </div>
         </div>
       )

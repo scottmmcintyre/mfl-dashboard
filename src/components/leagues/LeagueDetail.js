@@ -34,20 +34,20 @@ class LeaguesDetail extends Component {
         }
         else if(!this.props.playersLoaded && this.props.cookie) {
             this.props.loadPlayersRequest(cookie);
-            return (<div>"Loading players..."</div>)
+            return (<div className="center-align">"Loading players..."</div>)
         } else if (!this.props.leagues.byId[league_id].roster) {
             this.props.loadRosterRequest(cookie, league_id, this.props.leagues.byId[league_id].franchise_id);
-            return (<div>"Loading roster..."</div>)
+            return (<div className="center-align">"Loading roster..."</div>)
         } else if (!this.props.leagues.byId[league_id].record) {
             this.props.loadStandingsRequest(cookie, league_id, this.props.leagues.byId[league_id].franchise_id);
-            return (<div>"Loading standings..."</div>)
+            return (<div className="center-align">"Loading standings..."</div>)
         }
         else {
             return (
                 <div className="container">
                     <div className="row">
                         <div className="col s6">
-                                <div className="card blue-grey darken-1">
+                                <div className="card blue darken-3">
                                     <div className="card-content white-text">
                                         <span className="card-title">{league.name}</span>
                                         <h6>{league.franchise_name}</h6>
@@ -71,7 +71,13 @@ class LeaguesDetail extends Component {
                                     Header: 'Name',
                                     accessor: 'name'
                                 }
-                            ]} 
+                            ]}
+                            defaultSorted={
+                                [{
+                                    id: 'position',
+                                    desc: true
+                                }]
+                            }
                             defaultPageSize={50}
                             minRows={0} />
                         </div>
