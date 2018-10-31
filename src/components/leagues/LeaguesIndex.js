@@ -11,7 +11,9 @@ class LeaguesIndex extends Component {
             return (<div>"Loading teams..."</div>)
         } else {
             return (
-            <LeaguesList leagues={this.props.leagues}/>
+                <div className="container">
+                    <LeaguesList leagues={this.props.leagues}/>
+                </div>
             )
         }
     }

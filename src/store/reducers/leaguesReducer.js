@@ -1,4 +1,4 @@
-import { LOAD_LEAGUES_FAILURE, LOAD_LEAGUES_PENDING, LOAD_LEAGUES_SUCCESS, LOAD_ROSTER_SUCCESS } from "../actions/constants";
+import { LOAD_LEAGUES_FAILURE, LOAD_LEAGUES_PENDING, LOAD_LEAGUES_SUCCESS, LOAD_ROSTER_SUCCESS, LOGOUT_USER } from "../actions/constants";
 
 const initialState = {
     byId: {},
@@ -36,6 +36,8 @@ export default function leaguesReducer (state = initialState, action) {
                     }
                 }
             }
+        case LOGOUT_USER:
+            return initialState
         default:
             return state
     }

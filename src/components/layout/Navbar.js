@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SignedInLinks from './SignedInLinks';
-import SignedOutLinks from './SignedOutLinks';
+import { logoutUser } from '../../store/actions/authActions';
 
 
 class Navbar extends Component {
 
-  renderLinks(cookie) {
-    if (cookie) {
-      return (<SignedInLinks />)
-    } else {
-      return (<SignedOutLinks />)
-    } 
+  onLogoutclick = (e) => {
+    e.preventDefault();
+    this.props.logoutUser();
   }
 
   render() {
+
+    const { cookie } = this.props;
+
+    const signedInLinks = (
+      <div>
+        <ul className="right">
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/teams">Teams</Link></li>
+          <li><Link to="/players">Players</Link></li>
+          <li><Link to="/signin" onClick={this.onLogoutclick}>Sign Out</Link></li>
+        </ul>
+      </div>
+    );
+
+    const signedOutLinks = (
+      <div>
+        <ul className="right">
+          <li><Link to="/signin">Sign In</Link></li>
+        </ul>
+      </div>
+    );
+
     return (
       <div>
         <nav>
           <div className="nav-wrapper blue darken-3">
-            <Link to="Home" className="brand-logo">FFTools</Link>
-              {this.renderLinks(this.props.cookie)}
+            <Link to="/home" className="brand-logo">FFTools</Link>
+              { cookie ? signedInLinks : signedOutLinks}
           </div>
         </nav>
       </div>
@@ -33,4 +51,5 @@ export default connect((state) => {
     return {
       cookie: state.auth.cookie
     }
-  })(Navbar);
+  },
+  ({ logoutUser }))(Navbar);

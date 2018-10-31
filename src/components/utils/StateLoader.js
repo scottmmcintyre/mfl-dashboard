@@ -22,3 +22,12 @@ export const saveState = (state) => {
         //do nothing and let state be built as normal
     }
 }
+
+export const deleteState = () => {
+    try {
+        localStorage.removeItem("mfl-dashboard-state");
+    }
+    catch (err) {
+
+    }
+}

@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_PENDING, LOGIN_SUCCESS } from "../actions/constants";
+import { LOGIN_FAILURE, LOGIN_PENDING, LOGIN_SUCCESS, LOGOUT_USER } from "../actions/constants";
 
 const initialState = {
     cookie: '',
@@ -28,6 +28,8 @@ export default function authReducer (state = initialState, action) {
                 loginSuccess: true,
                 loginPending: false
             }
+        case LOGOUT_USER:
+            return initialState
         default:
             return state
     }

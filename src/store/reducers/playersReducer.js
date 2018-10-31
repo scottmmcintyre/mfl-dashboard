@@ -1,4 +1,4 @@
-import { LOAD_PLAYERS_FAILURE, LOAD_PLAYERS_PENDING, LOAD_PLAYERS_SUCCESS } from "../actions/constants";
+import { LOAD_PLAYERS_FAILURE, LOAD_PLAYERS_PENDING, LOAD_PLAYERS_SUCCESS, LOGOUT_USER } from "../actions/constants";
 
 const initialState = {
     allIds: [],
@@ -25,6 +25,8 @@ export default function playersReducer (state = initialState, action) {
                 byId: action.payload.byId,
                 playersLoaded: true
             }
+        case LOGOUT_USER:
+            return initialState
         default:
             return state
     }

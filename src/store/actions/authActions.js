@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { LOGIN_PENDING, LOGIN_FAILURE, LOGIN_SUCCESS } from './constants';
+import { LOGIN_PENDING, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_USER } from './constants';
+import { deleteState } from '../../components/utils/StateLoader';
 
 export function loginFailure(error) {
     return {
@@ -35,3 +36,10 @@ export function loginRequest(credentials) {
             });
     }
 }
+
+export function logoutUser() {
+    deleteState();
+    return {
+        type: LOGOUT_USER
+    }
+} 
