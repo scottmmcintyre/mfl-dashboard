@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { loadPlayersRequest } from '../../store/actions/playersActions';
-import { loadRosterRequest } from '../../store/actions/leaguesActions';
+import { loadRosterRequest, loadStandingsRequest } from '../../store/actions/leaguesActions';
 import ReactTable from 'react-table';
 
 import "react-table/react-table.css";
@@ -23,7 +23,6 @@ class LeaguesDetail extends Component {
         return data;
     }
 
-
     render() {
         const cookie = this.props.cookie;
         const league_id = this.props.match.params.league_id;
@@ -39,6 +38,9 @@ class LeaguesDetail extends Component {
         } else if (!this.props.leagues.byId[league_id].roster) {
             this.props.loadRosterRequest(cookie, league_id, this.props.leagues.byId[league_id].franchise_id);
             return (<div>"Loading roster..."</div>)
+        } else if (!this.props.leagues.byId[league_id].record) {
+            this.props.loadStandingsRequest(cookie, league_id, this.props.leagues.byId[league_id].franchise_id);
+            return (<div>"Loading standings..."</div>)
         }
         else {
             return (
@@ -48,10 +50,11 @@ class LeaguesDetail extends Component {
                                 <div className="card blue-grey darken-1">
                                     <div className="card-content white-text">
                                         <span className="card-title">{league.name}</span>
-                                        <p>League information goes here.</p>
-                                        <p>Record: 7 - 5</p>
-                                        <p>Season Points: 1256.5</p>
-                                        <p>Power Ranking: 7/12</p>
+                                        <h6>{league.franchise_name}</h6>
+                                        <p>Record: {league.record}</p>
+                                        <p>Season Points For: {league.points_for}</p>
+                                        <p>Season Points Against: {league.points_against}</p>
+                                        <p>All Play Record: {league.all_play_record}</p>
                                     </div>
                                     <div className="card-action">
                                         <a href={league.url}>Go to MFL</a>
@@ -91,7 +94,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadPlayersRequest: (cookie) => { dispatch(loadPlayersRequest(cookie)) },
-        loadRosterRequest: (cookie, league_id, franchise_id) => { dispatch(loadRosterRequest(cookie,league_id, franchise_id)) }
+        loadRosterRequest: (cookie, league_id, franchise_id) => { dispatch(loadRosterRequest(cookie,league_id, franchise_id)) },
+        loadStandingsRequest: (cookie, league_id, franchise_id) => { dispatch(loadStandingsRequest(cookie,league_id,franchise_id)) }
     }
 }
 

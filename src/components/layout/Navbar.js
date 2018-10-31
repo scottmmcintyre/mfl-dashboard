@@ -20,7 +20,6 @@ class Navbar extends Component {
         <ul className="right">
           <li><Link to="/home">Home</Link></li>
           <li><Link to="/teams">Teams</Link></li>
-          <li><Link to="/players">Players</Link></li>
           <li><Link to="/signin" onClick={this.onLogoutclick}>Sign Out</Link></li>
         </ul>
       </div>
@@ -38,7 +37,7 @@ class Navbar extends Component {
       <div>
         <nav>
           <div className="nav-wrapper blue darken-3">
-            <Link to="/home" className="brand-logo">FFTools</Link>
+            <Link to="/home" className="brand-logo">MFL Dashboard</Link>
               { cookie ? signedInLinks : signedOutLinks}
           </div>
         </nav>

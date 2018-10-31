@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOAD_LEAGUES_FAILURE, LOAD_LEAGUES_SUCCESS, LOAD_LEAGUES_PENDING, LOAD_ROSTER_PENDING, LOAD_ROSTER_SUCCESS, LOAD_ROSTER_FAILURE } from './constants';
+import { LOAD_LEAGUES_FAILURE, LOAD_LEAGUES_SUCCESS, LOAD_LEAGUES_PENDING, LOAD_ROSTER_PENDING, LOAD_ROSTER_SUCCESS, LOAD_ROSTER_FAILURE, LOAD_STANDINGS_SUCCESS, LOAD_STANDINGS_FAILURE } from './constants';
 
 export function loadLeaguesFailure(error) {
     return {
@@ -32,6 +32,20 @@ export function loadRosterSuccess(roster) {
     return {
         type: LOAD_ROSTER_SUCCESS,
         payload: roster
+    }
+}
+
+export function loadStandingsSuccess(standings) {
+    return {
+        type: LOAD_STANDINGS_SUCCESS,
+        payload: standings
+    }
+}
+
+export function loadStandingsFailure(error) {
+    return {
+        type: LOAD_STANDINGS_FAILURE,
+        payload: error
     }
 }
 
@@ -68,5 +82,17 @@ export function loadRosterRequest(cookie, league_id, franchise_id) {
             .catch((error) => {
                 dispatch(loadRosterFailure(error))
             });
+    }
+}
+
+export function loadStandingsRequest(cookie, league_id, franchise_id) {
+    return (dispatch) => {
+        axios.get(`http://localhost:4000/export/leagueStandings/${cookie}/league/${league_id}/franchise/${franchise_id}`)
+            .then((response) => {
+                dispatch(loadStandingsSuccess(response.data));
+            })
+            .catch((error) => {
+                dispatch(loadStandingsFailure(error))
+            });    
     }
 }
